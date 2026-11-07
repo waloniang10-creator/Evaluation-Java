@@ -1,0 +1,40 @@
+Corrigé Exercice 1 avec N = 37
+Attention : l'identité de la chaîne toString() dépend de l'objet, mais startsWith("Moto@") est vrai pour la représentation Object habituelle.
+
+Affichage :
+A vehicule
+F null 0
+E moto 137
+Moto2
+vehicule
+moto
+C3
+C2
+D-vehicule
+A vehicule
+F null 0
+E moto 137
+true false
+true
+A vehicule
+B vehicule
+3
+
+Explication :
+- F null 0 : le constructeur de Vehicule appelle demarrer(); la redéfinition de Moto est appelée dynamiquement avant l'initialisation des champs de Moto. Ils ont donc leurs valeurs par défaut null et 0.
+- C3 : la signature choisie est comparer(Vehicule), puis l'implémentation redéfinie dans Moto s'exécute.
+- C2 : le cast (Moto) sélectionne la surcharge comparer(Moto) à la compilation; cette méthode n'est pas redéfinie dans Moto.
+- D-vehicule : categorie() est statique; l'appel est résolu selon le type déclaré de la référence, Vehicule.
+- Les deux expressions de la concaténation sont évaluées de gauche à droite. Le new Moto() du second terme affiche donc ses lignes de constructeur avant le println qui affiche true false.
+- N % 3 = 37 % 3 = 1 : une instance Vehicule supplémentaire est créée.
+- compteur vaut 3 : deux objets Moto et un objet Vehicule.
+
+Transtypage :
+1. Vehicule x1 = c;                 compile, OK.
+2. Moto x2 = a;                     ne compile pas : conversion descendante implicite interdite.
+3. Moto x3 = (Moto) a;              compile, OK : l'objet réel est Moto.
+4. Moto x4 = (Moto) b;              compile, ClassCastException : l'objet réel est Camion.
+5. Camion x5 = (Camion) c;          compile, ClassCastException : l'objet réel est Moto.
+6. String x6 = (String) b;          compile, ClassCastException : l'objet réel est Camion.
+7. String x7 = b.type();            ne compile pas : Object ne possède pas de méthode type().
+8. String x8 = ((Vehicule) b).type(); compile, OK : Camion hérite de type() et renvoie "Vehicule".
